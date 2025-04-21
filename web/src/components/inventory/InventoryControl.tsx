@@ -8,6 +8,9 @@ import { onGive } from '../../dnd/onGive';
 import { fetchNui } from '../../utils/fetchNui';
 import { Locale } from '../../store/locale';
 import UsefulControls from './UsefulControls';
+import { FaHand } from "react-icons/fa6";
+import { IoMdSwap } from "react-icons/io";
+import { FaHandshakeSimple } from "react-icons/fa6";
 
 const InventoryControl: React.FC = () => {
   const itemAmount = useAppSelector(selectItemAmount);
@@ -48,13 +51,12 @@ const InventoryControl: React.FC = () => {
             min={0}
           />
           <button className="inventory-control-button" ref={use}>
+          <FaHand style={{ fontSize: '35px', color: '#fff' }} />
             {Locale.ui_use || 'Use'}
           </button>
           <button className="inventory-control-button" ref={give}>
+          <FaHandshakeSimple style={{ fontSize: '35px', color: '#fff' }} />
             {Locale.ui_give || 'Give'}
-          </button>
-          <button className="inventory-control-button" onClick={() => fetchNui('exit')}>
-            {Locale.ui_close || 'Close'}
           </button>
         </div>
       </div>

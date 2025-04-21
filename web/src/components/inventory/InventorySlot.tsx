@@ -135,6 +135,17 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
         border: isOver ? '1px dashed rgba(255,255,255,0.4)' : '',
       }}
     >
+      <div
+        className={
+          inventoryType === 'player' && item.slot <= 5
+            ? 'item-hotslot-header-wrapper'
+            : 'item-slot-header-wrapper'
+        }
+      >
+        {inventoryType === 'player' && item.slot <= 5 && !isSlotWithItem(item) && (
+          <div className="inventory-slot-number">{item.slot}</div>
+        )}
+      </div>
       {isSlotWithItem(item) && (
         <div
           className="item-slot-wrapper"
@@ -151,12 +162,7 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
             }
           }}
         >
-          <div
-            className={
-              inventoryType === 'player' && item.slot <= 5 ? 'item-hotslot-header-wrapper' : 'item-slot-header-wrapper'
-            }
-          >
-            {inventoryType === 'player' && item.slot <= 5 && <div className="inventory-slot-number">{item.slot}</div>}
+          
             <div className="item-slot-info-wrapper">
               <p>
                 {item.weight > 0
@@ -171,7 +177,6 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
               </p>
               <p>{item.count ? item.count.toLocaleString('en-us') + `x` : ''}</p>
             </div>
-          </div>
           <div>
             {inventoryType !== 'shop' && item?.durability !== undefined && (
               <WeightBar percent={item.durability} durability />

@@ -7,44 +7,62 @@ const colorChannelMixer = (colorChannelA: number, colorChannelB: number, amountT
 };
 
 const colorMixer = (rgbA: number[], rgbB: number[], amountToMix: number) => {
-  let r = colorChannelMixer(rgbA[0], rgbB[0], amountToMix);
-  let g = colorChannelMixer(rgbA[1], rgbB[1], amountToMix);
-  let b = colorChannelMixer(rgbA[2], rgbB[2], amountToMix);
+  let r = Math.round(colorChannelMixer(rgbA[0], rgbB[0], amountToMix));
+  let g = Math.round(colorChannelMixer(rgbA[1], rgbB[1], amountToMix));
+  let b = Math.round(colorChannelMixer(rgbA[2], rgbB[2], amountToMix));
   return `rgb(${r}, ${g}, ${b})`;
 };
 
 const COLORS = {
-  // Colors used - https://materialui.co/flatuicolors
-  primaryColor: [231, 76, 60], // Red (Pomegranate)
-  secondColor: [39, 174, 96], // Green (Nephritis)
-  accentColor: [211, 84, 0], // Orange (Oragne)
+  primaryColor: [189, 36, 28],
+  secondColor: [189, 36, 28],
+  accentColor: [189, 36, 28],
 };
 
 const WeightBar: React.FC<{ percent: number; durability?: boolean }> = ({ percent, durability }) => {
-  const color = useMemo(
-    () =>
-      durability
-        ? percent < 50
-          ? colorMixer(COLORS.accentColor, COLORS.primaryColor, percent / 100)
-          : colorMixer(COLORS.secondColor, COLORS.accentColor, percent / 100)
-        : percent > 50
+  const color = useMemo(() => {
+    return durability
+      ? percent < 50
+        ? colorMixer(COLORS.accentColor, COLORS.primaryColor, percent / 100)
+        : colorMixer(COLORS.secondColor, COLORS.accentColor, percent / 100)
+      : percent > 50
         ? colorMixer(COLORS.primaryColor, COLORS.accentColor, percent / 100)
-        : colorMixer(COLORS.accentColor, COLORS.secondColor, percent / 50),
-    [durability, percent]
-  );
+        : colorMixer(COLORS.accentColor, COLORS.secondColor, percent / 50);
+  }, [durability, percent]);
+
+  if (durability) {
+    // Solid bar for durability
+    return (
+      <div className="durability-bar" style={{ width: '100%', height: '3px', backgroundColor: '#333' }}>
+        <div
+          style={{
+            width: `${percent}%`,
+            backgroundColor: color,
+            transition: 'width 0.3s ease',
+          }}
+        />
+      </div>
+    );
+  }
+
+  // Segmented bar for weight
+  const segments = 20;
+  const activeSegments = Math.round((percent / 100) * segments);
 
   return (
-    <div className={durability ? 'durability-bar' : 'weight-bar'}>
-      <div
-        style={{
-          visibility: percent > 0 ? 'visible' : 'hidden',
-          height: '100%',
-          width: `${percent}%`,
-          backgroundColor: color,
-          transition: `background ${0.3}s ease, width ${0.3}s ease`,
-        }}
-      ></div>
+    <div className="weight-bar" style={{ display: 'flex', gap: '6px' }}>
+      {[...Array(segments)].map((_, i) => (
+        <div
+          key={i}
+          style={{
+            flex: 1,
+            backgroundColor: i < activeSegments ? color : '#333',
+            transition: 'background 0.3s ease',
+          }}
+        />
+      ))}
     </div>
   );
 };
+
 export default WeightBar;

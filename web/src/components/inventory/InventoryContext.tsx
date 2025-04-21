@@ -41,7 +41,7 @@ const InventoryContext: React.FC = () => {
 
   const handleClick = (data: DataProps) => {
     if (!item) return;
-
+    console.log('Context item:', item.metadata?.description);
     switch (data && data.action) {
       case 'use':
         onUse({ name: item.name, slot: item.slot });
@@ -92,6 +92,14 @@ const InventoryContext: React.FC = () => {
   return (
     <>
       <Menu>
+        {item && (
+          <div className="context-item-header">
+            <p className="context-item-name">{item.metadata?.label || Items[item.name]?.label || item.name}</p>
+            {item.metadata?.description || Items[item.name]?.description && (
+              <p className="context-item-description">{item.metadata?.description || Items[item.name]?.description}</p>
+            )}
+          </div>
+        )}
         <MenuItem onClick={() => handleClick({ action: 'use' })} label={Locale.ui_use || 'Use'} />
         <MenuItem onClick={() => handleClick({ action: 'give' })} label={Locale.ui_give || 'Give'} />
         <MenuItem onClick={() => handleClick({ action: 'drop' })} label={Locale.ui_drop || 'Drop'} />

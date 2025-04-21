@@ -1,16 +1,21 @@
-$mainColor: #22232c;
-$textColor: #c1c2c5;
-$mainFont: Roboto;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.cdnfonts.com/css/akira-expanded');
+@import url('https://fonts.googleapis.com/css2?family=Special+Gothic&family=Special+Gothic+Condensed+One&family=Special+Gothic+Expanded+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
-$secondaryColor: rgba(12, 12, 12, 0.4);
-$secondaryColorHighlight: #33343F;
+$mainColor: #0e0e0e;
+$textColor: #c1c2c5;
+$mainFont: 'Poppins', sans-serif;
+
+$secondaryColor: rgba(0, 0, 0, 0.4);
+$secondaryColorHighlight: #242424;
 $secondaryColorLight: rgba(0, 0, 0, 0.5);
-$secondaryColorDark: rgba(12, 12, 12, 0.8);
+$secondaryColorDark: rgba(0, 0, 0, 0.8);
 
 $gridCols: 5;
 $gridRows: 5;
 $gridSize: 10.2vh;
-$gridGap: 2px;
+$gridGap: 4px;
 $containerSize: calc(#{$gridRows} * #{$gridSize + 0.22vh} + #{$gridRows} * #{$gridGap});
 
 body {
@@ -121,8 +126,9 @@ button:active {
   justify-content: center;
   align-items: center;
   height: 100%;
-
-  gap: 20px;
+  background-color: rgba(12, 12, 12, 0.8);
+  background: linear-gradient(.05turn, rgba(255, 0, 0, 0.8)0%, rgba(12, 12, 12, 0.8) 40%, rgba(12, 12, 12, 0.8) 100%);
+  gap: 5px;
 }
 
 .inventory-control {
@@ -131,20 +137,21 @@ button:active {
   .inventory-control-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
     justify-content: center;
     align-items: center;
   }
 
   .inventory-control-input {
+    border: 1px solid rgb(168, 30, 30);
     transition: 200ms;
-    padding: 16px 8px;
-    border-radius: 2.5%;
+    padding: 12px 2px;
+    border-radius: 10px;
     font-family: $mainFont;
+    width:75%;
     font-size: 16px;
     text-align: center;
     outline: none;
-    border: none;
     color: #fff;
     background-color: $secondaryColor;
     &:focus-within {
@@ -153,20 +160,22 @@ button:active {
   }
 
   .inventory-control-button {
-    font-size: 14px;
+    font-size: 18px;
     color: #fff;
-    background-color: $secondaryColor;
+    background-color: rgba(0, 0, 0, 0.0);
     transition: 200ms;
     padding: 12px 8px;
     border-radius: 2.5%;
     border: none;
     text-transform: uppercase;
     font-family: $mainFont;
-    width: 100%;
+    width: 50%;
     font-weight: 500;
-    &:hover {
-      background-color: $secondaryColorDark;
-    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
   }
 }
 
@@ -226,9 +235,10 @@ button:active {
 
 .useful-controls-button {
   position: absolute !important;
-  bottom: 25px;
-  right: 25px;
-  transition: 200ms !important;
+  top: 77%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: background-color 200ms ease;
   border: none;
   color: white;
   width: 52px;
@@ -237,12 +247,74 @@ button:active {
   justify-content: center;
   align-items: center;
   fill: white;
-  border-radius: 5% !important;
-  background-color: $secondaryColor !important;
+  border-radius: 5%;
+  background-color: transparent;
+  outline: none;
   &:hover {
-    background-color: $secondaryColorDark !important;
+    background-color: transparent;
     cursor: pointer;
   }
+  &:focus {
+    outline: none;
+  }
+  &:active {
+    background-color: transparent;
+    transform: translate(-50%, -50%) scale(0.98);
+  }
+}
+
+
+.close-button-wrapper {
+  position: absolute;
+  top: -100px;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.close-button {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: rgba(243, 16, 16, 0.6);
+  fill: rgb(0, 0, 0);
+  color: rgb(0, 0, 0);
+  box-shadow: 0 0 2px rgba(243, 16, 16, 0.6);
+  border-radius: 5%;
+  transition: background-color 200ms;
+
+  &:hover {
+    background-color: rgba(192, 24, 24, 0.6);
+    cursor: pointer;
+  }
+}
+
+.close-button-label {
+  text-transform: uppercase;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  text-shadow: 0 0 2px #d8d8d8;
+  text-align:right;
+  font-weight: 900;
+  p {
+    font-weight: 200;
+  }
+}
+
+.server-logo {
+  position: absolute !important;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: auto;
+  border-radius: 2.5% !important;
+  color: grey !important;
+  z-index: 9999;
 }
 
 .useful-controls-exit-button {
@@ -256,7 +328,53 @@ button:active {
 // Dialog is used fro useful controls window
 
 
-// inventory grids
+.inventory-icon-row {
+  position: absolute;
+  top: -100px; // adjust vertically
+  left: 0;
+  display: flex;
+  align-items: center;
+  font-family: 'Lato', sans-serif;
+  color: rgb(235, 235, 235);
+  text-shadow: 0 0 2px #d8d8d8;
+  z-index: 10;
+}
+
+
+.inventory-icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  margin-right:10px;
+  border-radius: 6px;
+  background-color: rgb(0, 0, 0);
+  box-shadow: 0 0 2px #000000;
+
+  .inventory-icon {
+    color: #d8d8d8;
+    font-size: 20px;
+    filter: drop-shadow(0 0 2px #d8d8d8);
+  }
+}
+
+.inventory-icon-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+
+  p {
+    margin: 0;
+    font-weight: 400;
+    font-size: 12px;
+  }
+  h1 {
+    margin: 0;
+    font-weight: 900;
+    font-size: 20px;
+  }
+}
+
 .inventory-grid-wrapper {
   display: flex;
   flex-direction: column;
@@ -267,8 +385,32 @@ button:active {
   flex-direction: row;
   justify-content: space-between;
   p {
-    font-size: 16px;
+    font-size: 14px;
+    color:#d8d8d8;
+    font-family: 'Special Gothic Expanded One', sans-serif;
+    font-weight:400;
+    text-shadow: 0 0 2px #d8d8d8;
   }
+}
+
+.inventory-weight-bar-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  min-height: 20px;
+  align-items: center;
+
+  .inventory-weight-text {
+    margin-top: 6px;
+    font-size: 14px;
+    color: #d8d8d8;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    text-shadow: 0 0 2px #d8d8d8;
+  }
+
+  // optional: make sure the whole row stretches full width
+  width: 100%;
 }
 
 .inventory-grid-container {
@@ -285,7 +427,7 @@ button:active {
   background-color: $secondaryColor;
   background-repeat: no-repeat;
   background-position: center;
-  border-radius: 2.5%;
+  border-radius: 6.0%;
   image-rendering: -webkit-optimize-contrast;
   position: relative;
   background-size: 7vh;
@@ -296,18 +438,12 @@ button:active {
 }
 
 .inventory-slot-label-box {
-  background-color: $mainColor;
   color: $textColor;
   text-align: center;
-  border-bottom-left-radius: 0.25vh;
-  border-bottom-right-radius: 0.25vh;
-  border-top-color: rgba(0, 0, 0, 0.2);
-  border-top-style: inset;
-  border-top-width: 1px;
 }
 
 .inventory-slot-label-text {
-  text-transform: uppercase;
+  text-transform: capitalize;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -318,14 +454,15 @@ button:active {
 }
 
 .inventory-slot-number {
-  background-color: white;
-  color: black;
-  height: 12px;
-  border-top-left-radius: 0.25vh;
-  border-bottom-right-radius: 0.25vh;
-  padding: 3px;
-  font-size: 12px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 40px;
+  font-weight: 300;
   font-family: $mainFont;
+  pointer-events: none;
 }
 
 .item-slot-wrapper {
@@ -383,6 +520,40 @@ button:active {
   }
 }
 
+.context-item-header {
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.context-item-name {
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0;
+  color: #fff;
+}
+
+.context-item-description {
+  font-family: 'Lato', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #bbb;
+  margin: 4px 0 0;
+  line-height: 1.2;
+}
+
+.context-item-details {
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(0, 0, 0, 0.4);
+
+  p {
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
+    color: #ccc;
+    margin: 2px 0;
+  }
+}
 
 .tooltip-wrapper {
   pointer-events: none;
@@ -503,18 +674,40 @@ button:active {
   width: $gridSize;
 }
 
+.weight-bar,
 .durability-bar {
-  background: rgba(0, 0, 0, 0.5);
-  height: 3px;
+  display: flex;
   overflow: hidden;
 }
 
 .weight-bar {
-  background: rgba(0, 0, 0, 0.4);
-  border: 1px inset rgba(0, 0, 0, 0.1);
-  height: 0.8vh;
-  border-radius: 5%;
+  width: 14vw;
+  gap: 2px;
+  display: flex;
   overflow: hidden;
+  align-items: center;
+}
+
+.weight-bar div {
+  flex: 1;
+  height: 20px;
+  background-color: #333;
+  transition: background 0.3s ease;
+}
+
+
+.durability-bar {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.durability-bar > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  transition: width 0.3s ease;
 }
 
 .transition-fade-enter {
