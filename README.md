@@ -1,4 +1,8 @@
-# ox_inventory
+# ox_inventory - fsg redesign
+
+![image](https://github.com/user-attachments/assets/4b179525-5f33-4932-a11d-b915976866ad)
+Redesign for ox_inventory by fsg
+Make sure to join my [Discord](https://discord.gg/NCZzpR3MRN)
 
 A complete inventory system for FiveM, implementing items, weapons, shops, and more without any strict framework dependency.
 
